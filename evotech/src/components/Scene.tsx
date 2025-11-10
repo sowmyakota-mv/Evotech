@@ -44,14 +44,14 @@ function Model({ animationIndex }:SceneProps) {
   useEffect(() => {
     const newPos = positions[animationIndex % positions.length];
     target.current = newPos;
-    }, [animationIndex]);
+    
 
-//     // Instantly reset to starting point before smooth transition
-//     if (group.current) {
-//       group.current.position.set(newPos.x, newPos.y, newPos.z);
-//       group.current.rotation.y = newPos.rotY;
-//     }
-//   }, [animationIndex]);
+    // Instantly reset to starting point before smooth transition
+    if (group.current) {
+      group.current.position.set(newPos.x, newPos.y, newPos.z);
+      group.current.rotation.y = newPos.rotY;
+    }
+  }, [animationIndex]);
 
   // Smooth motion frame-by-frame
   useFrame((_, delta) => {
@@ -62,13 +62,13 @@ function Model({ animationIndex }:SceneProps) {
     group.current.position.x = THREE.MathUtils.lerp(
       group.current.position.x,
       target.current.x,
-      delta * 0.5 // adjust for speed
+      delta * 1.5 // adjust for speed
     );
 
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
       target.current.rotY,
-      delta * 1.2
+      delta * 3
     );
   });
 
