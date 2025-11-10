@@ -1,5 +1,4 @@
 // src/components/KeyStats.tsx
-import React from "react";
 import { motion } from "framer-motion";
 
 export function KeyStats() {

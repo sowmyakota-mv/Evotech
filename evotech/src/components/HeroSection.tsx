@@ -24,7 +24,7 @@ const titles = [
 ];
 
 // Typing animation helper
-const useTypingEffect = (text, speed = 30, delay = 0) => {
+const useTypingEffect = (text:string, speed = 30, delay = 0) => {
   const [displayedText, setDisplayedText] = useState("");
   useEffect(() => {
     let i = 0;

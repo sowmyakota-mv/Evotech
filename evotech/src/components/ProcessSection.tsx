@@ -1,5 +1,4 @@
 // src/components/Process.tsx
-import React from "react";
 import { motion } from "framer-motion";
 import { ClipboardList, Code2, Rocket } from "lucide-react";
 

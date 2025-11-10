@@ -3,13 +3,20 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Preload } from "@react-three/drei";
 import * as THREE from "three";
 
-function Model({ animationIndex }) {
-  const group = useRef();
-  const { scene, animations } = useGLTF("/ai_kitchen__just_a_bit_fun/scene.gltf");
-  const mixer = useRef();
-  const action = useRef();
+interface SceneProps {
+  animationIndex: number;
+}
 
-  // Load and play robot’s animation
+function Model({ animationIndex }:SceneProps) {
+  const group = useRef<THREE.Group>(null!);
+  const { scene, animations } = useGLTF("/ai_kitchen__just_a_bit_fun/scene.gltf") as {
+    scene: THREE.Group;
+    animations: THREE.AnimationClip[];
+  };
+  const mixer = useRef<THREE.AnimationMixer | null>(null);
+  const action = useRef<THREE.AnimationAction | null>(null);
+
+  // Load and play the robot’s walking animation
   useEffect(() => {
     if (animations && animations.length > 0) {
       mixer.current = new THREE.AnimationMixer(scene);
@@ -18,30 +25,51 @@ function Model({ animationIndex }) {
     }
   }, [animations, scene]);
 
-  // Target position for each title
-  const target = useRef({ x: -2, y: -8.0, z: -8, rotY: 0 });
+  // 🎯 Define unique target position + rotation for each title
+  const target = useRef({
+    x: -2,
+    y: -8.0,
+    z: -8,
+    rotY: 0,
+  });
+
+  // Base positions for each section/title
   const positions = [
-    { x: -2, y: -8.0, z: -8, rotY: 0 },
-    { x: 0.5, y: -8.0, z: -8, rotY: Math.PI / 6 },
-    { x: -1.5, y: -8.0, z: -8, rotY: -Math.PI / 6 },
+    { x: -2, y: -8.0, z: -8, rotY: 0 },             // Title 1
+    { x: 0.5, y: -8.0, z: -8, rotY: Math.PI / 6 },  // Title 2
+    { x: -1.5, y: -8.0, z: -8, rotY: -Math.PI / 6 } // Title 3
   ];
 
-  // Update when index changes
+  // Update target when animationIndex changes
   useEffect(() => {
     const newPos = positions[animationIndex % positions.length];
     target.current = newPos;
-    // if (group.current) {
-    //   group.current.position.set(newPos.x, newPos.y, newPos.z);
-    //   group.current.rotation.y = newPos.rotY;
-    // }
-  }, [animationIndex]);
+    }, [animationIndex]);
 
-  // Smooth movement
+//     // Instantly reset to starting point before smooth transition
+//     if (group.current) {
+//       group.current.position.set(newPos.x, newPos.y, newPos.z);
+//       group.current.rotation.y = newPos.rotY;
+//     }
+//   }, [animationIndex]);
+
+  // Smooth motion frame-by-frame
   useFrame((_, delta) => {
     if (mixer.current) mixer.current.update(delta);
     if (!group.current) return;
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, target.current.x, delta * 0.5);
-    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, target.current.rotY, delta * 1.2);
+
+    // Interpolate to make movements smooth
+    group.current.position.x = THREE.MathUtils.lerp(
+      group.current.position.x,
+      target.current.x,
+      delta * 0.5 // adjust for speed
+    );
+
+    group.current.rotation.y = THREE.MathUtils.lerp(
+      group.current.rotation.y,
+      target.current.rotY,
+      delta * 1.2
+    );
   });
 
   return (
@@ -51,7 +79,7 @@ function Model({ animationIndex }) {
   );
 }
 
-export default function Scene({ animationIndex }) {
+export default function Scene({ animationIndex }:SceneProps) {
   return (
     <Canvas
       shadows
