@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
+import ScrollAnimation from "./Animations/ScrollAnimations";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -87,15 +88,13 @@ export function ContactSection() {
     <section
       id="contact"
       className="relative py-20 bg-cover bg-center"
-      style={{
-        backgroundImage: 'url("/contact-bg.jpg")', // change to your image
-      }}
-    >
+      style={{backgroundImage: 'url("/contact-bg.jpg")' }}>
       <div className="absolute inset-0 bg-black/10"></div>
-
-      <div className="relative max-w-6xl mx-auto w-[90%] md:w-[70%] bg-white/10 overflow-hidden shadow-2xl backdrop-blur-md rounded-2xl">
+<ScrollAnimation direction="up">
+      <div className="relative max-w-6xl mx-auto w-[80%] md:w-[70%] bg-white/10 overflow-hidden shadow-2xl backdrop-blur-md rounded-2xl">
         <div className="grid md:grid-cols-[70%_30%]">
           {/* Left Form Section */}
+          <ScrollAnimation direction="left">
           <motion.div
             className="bg-gradient-to-br from-blue-600/30 to-blue-800/30 text-white p-10"
             initial={{ opacity: 0, x: -40 }}
@@ -107,7 +106,7 @@ export function ContactSection() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Row 1 */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Full Name <span className="text-red-400">*</span>
@@ -152,7 +151,7 @@ export function ContactSection() {
               </div>
 
               {/* Row 2 */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">
                     Location
@@ -220,8 +219,10 @@ export function ContactSection() {
               </button>
             </form>
           </motion.div>
+          </ScrollAnimation>
 
           {/* Right Info Section */}
+          
           <motion.div
             className="bg-gradient-to-br from-white to-gray-100 p-10 flex flex-col justify-center"
             initial={{ opacity: 0, x: 40 }}
@@ -229,6 +230,7 @@ export function ContactSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
+            <ScrollAnimation direction="right" delay={0.2}>
             <h3 className="text-2xl font-bold text-gray-900 mb-6">
               Contact Details
             </h3>
@@ -260,10 +262,12 @@ export function ContactSection() {
                 Office Hours
               </h4>
               <p className="text-gray-600">Mon - Fri: 9:00 AM – 6:00 PM</p>
-            </div>
+            </div></ScrollAnimation>
           </motion.div>
+          
         </div>
       </div>
+      </ScrollAnimation>
     </section>
   );
 }

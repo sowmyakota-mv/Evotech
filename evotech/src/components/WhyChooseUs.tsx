@@ -1,6 +1,7 @@
 // src/components/WhyChooseUs.tsx
 import { motion } from "framer-motion";
 import { Users, Lightbulb, ShieldCheck, HeartHandshake } from "lucide-react";
+import ScrollAnimation from "./Animations/ScrollAnimations";
 
 export function WhyChooseUs() {
   const features = [
@@ -27,14 +28,16 @@ export function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-20 bg-blue-50">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 ml-24">
+    <ScrollAnimation direction="up">
+    <section className="py-12 bg-blue-50">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 ml-12 md:ml-24">
         {/* Left: Feature Grid (50% width) */}
-        <div className="md:w-1/2 grid grid-cols-2 gap-8">
+        <div className="md:w-1/2 grid md:grid-cols-2  gap-8">
           {features.map((feature, index) => (
+            <ScrollAnimation direction="left">
             <motion.div
               key={index}
-              className="flex items-center p-6 bg-blue-80 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
+              className="h-full flex items-center p-6 bg-blue-80 rounded-2xl shadow-md hover:shadow-lg transition-shadow"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -46,6 +49,7 @@ export function WhyChooseUs() {
                 <p className="text-gray-600 mt-1 text-sm">{feature.desc}</p>
               </div>
             </motion.div>
+            </ScrollAnimation>
           ))}
         </div>
 
@@ -70,5 +74,6 @@ export function WhyChooseUs() {
         </motion.div>
       </div>
     </section>
+    </ScrollAnimation>
   );
 }

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote } from "lucide-react";
+import ScrollAnimation from "./Animations/ScrollAnimations";
 
 export function SuccessStories() {
   const stories = [
@@ -90,104 +91,103 @@ export function SuccessStories() {
       setHoverIndex((prev) => {
         if (prev < storiesPerPage - 1) return prev + 1;
         else {
-          // Move to next group after all 3 cards hovered
           setGroupIndex((g) => (g + 1) % totalGroups);
           return 0;
         }
       });
-    }, 5000); // 5s per card
-
+    }, 5000);
     return () => clearInterval(hoverInterval);
   }, [storiesPerPage, totalGroups]);
 
   const start = groupIndex * storiesPerPage;
   const currentStories = stories.slice(start, start + storiesPerPage);
-
   if (currentStories.length < storiesPerPage) {
-    currentStories.push(
-      ...stories.slice(0, storiesPerPage - currentStories.length)
-    );
+    currentStories.push(...stories.slice(0, storiesPerPage - currentStories.length));
   }
 
   return (
     <section className="py-20" id="success-stories">
       <div className="w-[80%] mx-auto text-center">
-        <motion.h2
-  className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
-  initial={{ opacity: 0, y: 20 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ duration: 0.6 }}
->
-  Transforming Visions into Reality
-</motion.h2>
+        <ScrollAnimation>
+          <motion.h2
+            className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Transforming Visions into Reality
+          </motion.h2>
+        </ScrollAnimation>
 
-<motion.p
-  className="text-gray-600 text-sm md:text-lg mx-auto mb-12 leading-relaxed"
-  initial={{ opacity: 0, y: 10 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true }}
-  transition={{ delay: 0.2, duration: 0.6 }}
->
-  Every great success begins with a bold idea  and at <span className="font-semibold text-indigo-600">Evotech</span>, 
-  we turn those ideas into impactful digital realities. From AI-driven automation to cloud innovation and intelligent systems, 
-  our clients’ growth stories reflect our passion for building solutions that create measurable success, inspire progress, 
-  and shape the future of technology.
-</motion.p>
+        <ScrollAnimation>
+          <motion.p
+            className="text-gray-600 text-sm md:text-lg mx-auto mb-12 leading-relaxed"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            Every great success begins with a bold idea  and at{" "}
+            <span className="font-semibold text-indigo-600">Evotech</span>, we turn those ideas into impactful digital realities. 
+            From AI-driven automation to cloud innovation and intelligent systems, our clients’ growth stories reflect our passion 
+            for building solutions that create measurable success, inspire progress, and shape the future of technology.
+          </motion.p>
+        </ScrollAnimation>
 
         {/* Container */}
-        <div className="relative bg-white/60 backdrop-blur-md rounded-3xl shadow-lg p-10 overflow-hidden border border-gray-100">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={groupIndex}
-              className="grid grid-cols-1 md:grid-cols-3 gap-8"
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            >
-              {currentStories.map((story, i) => {
-                const isActive = i === hoverIndex;
+        <ScrollAnimation>
+          <div className="relative bg-white/60 backdrop-blur-md rounded-3xl shadow-lg p-10 overflow-hidden border border-gray-100">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={groupIndex}
+                className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              >
+                {currentStories.map((story, i) => {
+                  const isActive = i === hoverIndex;
 
-                return (
-                  <motion.div
-                    key={i}
-                    className={`rounded-2xl shadow-md p-8 transition-all duration-500 transform ${
-                      isActive
-                        ? "scale-110 bg-gray-900 text-white"
-                        : "bg-gradient-to-br from-blue-200 to-indigo-200 text-gray-900"
-                    }`}
-                    animate={{
-                      scale: isActive ? 1.05 : 1,
-                    }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
-                    <p className="text-sm mb-3 opacity-90">{story.desc}</p>
-                    <div className="text-sm mb-2">
-                      📈 <span className="font-semibold">{story.result}</span>
-                    </div>
-                    <p className="text-xs mb-3 opacity-80">👤 {story.client}</p>
-                    <div
-                      className={`relative p-3 rounded-xl ${
-                        isActive ? "bg-white/10" : "bg-white/20"
+                  return (
+                    <motion.div
+                      key={i}
+                      className={`rounded-2xl shadow-md p-8 transition-all duration-500 transform ${
+                        isActive
+                          ? "scale-110 bg-gray-900 text-white"
+                          : "bg-gradient-to-br from-blue-200 to-indigo-200 text-gray-900"
                       }`}
+                      animate={{
+                        scale: isActive ? 1.05 : 1,
+                      }}
+                      transition={{ duration: 0.6 }}
                     >
-                      <Quote
-                        className={`w-4 h-4 absolute -top-2 left-4 opacity-70 ${
-                          isActive ? "text-white" : "text-gray-800"
+                      <h3 className="text-xl font-semibold mb-2">{story.title}</h3>
+                      <p className="text-sm mb-3 opacity-90">{story.desc}</p>
+                      <div className="text-sm mb-2">
+                        📈 <span className="font-semibold">{story.result}</span>
+                      </div>
+                      <p className="text-xs mb-3 opacity-80">👤 {story.client}</p>
+                      <div
+                        className={`relative p-3 rounded-xl ${
+                          isActive ? "bg-white/10" : "bg-white/20"
                         }`}
-                      />
-                      <p className="text-xs italic opacity-90">
-                        {story.feedback}
-                      </p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+                      >
+                        <Quote
+                          className={`w-4 h-4 absolute -top-2 left-4 opacity-70 ${
+                            isActive ? "text-white" : "text-gray-800"
+                          }`}
+                        />
+                        <p className="text-xs italic opacity-90">{story.feedback}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </ScrollAnimation>
       </div>
     </section>
   );
