@@ -1,9 +1,9 @@
-// src/components/Header.tsx
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [serviceDropdown, setServiceDropdown] = useState(false);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -11,6 +11,15 @@ export function Header() {
     { name: "Services", href: "/services" },
     { name: "Portfolio", href: "/portfolio" },
     { name: "Contact", href: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { name: "Custom Web Development", href: "/services/web-development" },
+    { name: "E-Commerce Solutions", href: "/services/ecommerce" },
+    { name: "Enterprise Software", href: "/services/enterprise-software" },
+    { name: "Cloud & Infrastructure", href: "/services/cloud-infrastructure" },
+    { name: "Digital Marketing & SEO", href: "/services/digital-marketing-seo" },
+    { name: "Branding & Creative Design", href: "/services/branding-creative-design" },
   ];
 
   return (
@@ -28,23 +37,68 @@ export function Header() {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-8">
-          {navLinks.map(link => (
-            <Link
-              key={link.name}
-              to={link.href}
-              className="text-gray-700 hover:text-blue-600"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <nav className="hidden md:flex space-x-8 relative">
+          {navLinks.map((link) =>
+            link.name === "Services" ? (
+              <div
+                key={link.name}
+                className="relative group"
+                onMouseEnter={() => setServiceDropdown(true)}
+                onMouseLeave={() => setServiceDropdown(false)}
+              >
+                {/* Main Services link */}
+                <Link
+                  to={link.href}
+                  className="text-gray-700 hover:text-blue-600 inline-flex items-center"
+                >
+                  {link.name}
+                  <svg
+                    className="ml-1 w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-transform duration-200"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </Link>
+
+                {/* Dropdown */}
+                {serviceDropdown && (
+                  <div className="absolute left-0 mt-3 w-64 bg-white shadow-lg rounded-xl py-3 z-50 border border-gray-100">
+                    {serviceLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className="block px-4 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                className="text-gray-700 hover:text-blue-600"
+              >
+                {link.name}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <Link
             to="/contact"
-            className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
             Get a Quote
           </Link>
@@ -79,21 +133,63 @@ export function Header() {
 
       {/* Mobile Nav Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg">
-          {navLinks.map(link => (
-            <Link
-              key={link.name}
-              to={link.href}
-              onClick={() => setIsOpen(false)}
-              className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-            >
-              {link.name}
-            </Link>
-          ))}
+        <div className="md:hidden bg-white shadow-lg border-t border-gray-100">
+          {navLinks.map((link) =>
+            link.name === "Services" ? (
+              <div key={link.name} className="border-b border-gray-100">
+                <button
+                  onClick={() => setServiceDropdown(!serviceDropdown)}
+                  className="w-full flex justify-between items-center px-4 py-3 text-gray-700 hover:bg-gray-50"
+                >
+                  {link.name}
+                  <svg
+                    className={`w-5 h-5 transform transition-transform ${
+                      serviceDropdown ? "rotate-180" : "rotate-0"
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+
+                {/* Dropdown on Mobile */}
+                {serviceDropdown && (
+                  <div className="bg-gray-50">
+                    {serviceLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="block px-6 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.href}
+                onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-100"
+              >
+                {link.name}
+              </Link>
+            )
+          )}
           <Link
             to="/contact"
             onClick={() => setIsOpen(false)}
-            className="block px-4 py-2 mt-2 bg-blue-600 text-white text-center rounded-lg mx-4"
+            className="block px-4 py-3 mt-2 bg-blue-600 text-white text-center rounded-lg mx-4 mb-4"
           >
             Get a Quote
           </Link>
