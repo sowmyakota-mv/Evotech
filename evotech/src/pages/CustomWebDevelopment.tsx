@@ -1,4 +1,4 @@
-import { CheckCircle, CheckCircle2, CheckCircle2Icon, LucideCheckCircle } from "lucide-react";
+import { CheckCircle,  LucideCheckCircle } from "lucide-react";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
 
 export function CustomWebDevelopment() {

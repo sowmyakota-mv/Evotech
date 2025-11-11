@@ -1,4 +1,4 @@
-import { Check, CheckCheck, CheckCircle, CheckIcon, CheckSquareIcon } from "lucide-react";
+import {  CheckCircle,  CheckSquareIcon } from "lucide-react";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
 
 export function EcommerceSolutions() {
