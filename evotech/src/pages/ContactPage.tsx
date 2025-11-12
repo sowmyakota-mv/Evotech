@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
 
+interface FormData {
+  name: string;
+  email: string;
+  location: string;
+  phone: string;
+  message: string;
+}
+
+interface FormErrors {
+  name?: string;
+  email?: string;
+  phone?: string;
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     location: "",
@@ -14,27 +28,24 @@ const Contact = () => {
     message: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<FormErrors>({});
 
-  // ✅ Fix: explicitly type and handle safely
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePhoneChange = (value) => {
+  const handlePhoneChange = (value: string) => {
     setFormData((prev) => ({ ...prev, phone: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const newErrors = {};
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newErrors: FormErrors = {};
     if (!formData.name) newErrors.name = "Please enter your name.";
     if (!formData.email) newErrors.email = "Please enter your email.";
     if (!formData.phone) newErrors.phone = "Please enter your phone number.";
     setErrors(newErrors);
-
     if (Object.keys(newErrors).length === 0) {
       console.log("Form submitted successfully", formData);
     }
@@ -89,9 +100,7 @@ const Contact = () => {
                           placeholder="Enter your full name"
                         />
                         {errors.name && (
-                          <p className="text-red-400 font-bold text-xs mt-1">
-                            {errors.name}
-                          </p>
+                          <p className="text-red-400 font-bold text-xs mt-1">{errors.name}</p>
                         )}
                       </div>
 
@@ -112,9 +121,7 @@ const Contact = () => {
                           placeholder="Enter your email"
                         />
                         {errors.email && (
-                          <p className="text-red-400 font-bold text-xs mt-1">
-                            {errors.email}
-                          </p>
+                          <p className="text-red-400 font-bold text-xs mt-1">{errors.email}</p>
                         )}
                       </div>
                     </div>
@@ -122,9 +129,7 @@ const Contact = () => {
                     {/* Row 2 */}
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium mb-1">
-                          Location
-                        </label>
+                        <label className="block text-sm font-medium mb-1">Location</label>
                         <input
                           type="text"
                           name="location"
@@ -135,6 +140,7 @@ const Contact = () => {
                         />
                       </div>
 
+                      {/* Phone Number */}
                       <div>
                         <label className="block text-sm font-medium mb-1">
                           Phone Number <span className="text-red-400">*</span>
@@ -147,9 +153,7 @@ const Contact = () => {
                             width: "100%",
                             height: "42px",
                             borderRadius: "4px",
-                            border: errors.phone
-                              ? "1px solid #f87171"
-                              : "1px solid #ccc",
+                            border: errors.phone ? "1px solid #f87171" : "1px solid #ccc",
                             color: "#1f2937",
                             fontSize: "15px",
                           }}
@@ -161,18 +165,14 @@ const Contact = () => {
                           placeholder="🇮🇳 | +91 "
                         />
                         {errors.phone && (
-                          <p className="text-red-400 font-bold text-xs mt-1">
-                            {errors.phone}
-                          </p>
+                          <p className="text-red-400 font-bold text-xs mt-1">{errors.phone}</p>
                         )}
                       </div>
                     </div>
 
                     {/* Message */}
                     <div>
-                      <label className="block text-sm font-medium mb-1">
-                        Message
-                      </label>
+                      <label className="block text-sm font-medium mb-1">Message</label>
                       <textarea
                         name="message"
                         value={formData.message}
@@ -209,16 +209,11 @@ const Contact = () => {
                   <div className="space-y-5 text-gray-700">
                     <div className="flex items-center gap-3">
                       <MapPin className="text-blue-600" />
-                      <span className="text-sm">
-                        Hyderabad, Telangana, India
-                      </span>
+                      <span className="text-sm">Hyderabad, Telangana, India</span>
                     </div>
                     <div className="flex items-center gap-3">
                       <Phone className="text-blue-600" />
-                      <a
-                        href="tel:+919052544446"
-                        className="text-sm hover:underline"
-                      >
+                      <a href="tel:+919876543210" className="text-sm hover:underline">
                         +91 98765 43210
                       </a>
                     </div>
@@ -237,9 +232,7 @@ const Contact = () => {
                     <h4 className="text-lg font-semibold text-gray-900 mb-2">
                       Office Hours
                     </h4>
-                    <p className="text-gray-600">
-                      Mon - Fri: 9:00 AM – 6:00 PM
-                    </p>
+                    <p className="text-gray-600">Mon - Fri: 9:00 AM – 6:00 PM</p>
                   </div>
                 </ScrollAnimation>
               </motion.div>
