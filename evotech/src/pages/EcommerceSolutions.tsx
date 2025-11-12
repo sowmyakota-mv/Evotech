@@ -1,7 +1,9 @@
 import {  CheckCircle,  CheckSquareIcon } from "lucide-react";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
+import { useNavigate } from "react-router-dom";
 
 export function EcommerceSolutions() {
+    const navigate=useNavigate()
   return (
     <main id="/services/ecommerce" className="pt-16 bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -217,12 +219,11 @@ export function EcommerceSolutions() {
             Let’s transform your business into a thriving online marketplace with
             secure, scalable, and innovative e-commerce solutions.
           </p>
-          <a
-            href="/contact"
-            className="px-6 py-3 bg-white text-indigo-700 font-medium rounded-lg shadow hover:bg-gray-100 transition"
-          >
-            Get a Free Consultation
-          </a>
+          <button
+            onClick={()=>navigate("/contact-us")}
+            className="px-6 py-3 bg-white text-indigo-700 font-medium rounded-lg shadow hover:bg-gray-100 transition">
+            Get started Today
+          </button>
         </ScrollAnimation>
       </section>
     </main>

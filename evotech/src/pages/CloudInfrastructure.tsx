@@ -1,8 +1,10 @@
 // src/pages/CloudInfrastructure.tsx
 import { CopyCheck } from "lucide-react";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
+import { useNavigate } from "react-router-dom";
 
 export function CloudInfrastructure() {
+    const navigate=useNavigate()
   return (
     <main id="/services/cloud-infrastructure" className="pt-16 bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -167,12 +169,11 @@ export function CloudInfrastructure() {
           <p className="mb-8 opacity-90">
             Let us help you create resilient, scalable, and future-proof infrastructure for your business.
           </p>
-          <a
-            href="/contact"
-            className="px-6 py-3 bg-white text-teal-600 font-medium rounded-lg shadow hover:bg-gray-100 transition"
-          >
-            Get a Free Consultation
-          </a>
+          <button
+            onClick={()=>navigate("/contact-us")}
+            className="px-6 py-3 bg-white text-teal-600 font-medium rounded-lg shadow hover:bg-gray-100 transition">
+            Get in Touch
+          </button>
         </ScrollAnimation>
       </section>
     </main>

@@ -97,7 +97,7 @@ export function Header() {
         {/* Desktop CTA */}
         <div className="hidden md:block">
           <Link
-            to="/contact"
+            to="/contact-us"
             className="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
             Get a Quote
@@ -187,7 +187,7 @@ export function Header() {
             )
           )}
           <Link
-            to="/contact"
+            to="/contact-us"
             onClick={() => setIsOpen(false)}
             className="block px-4 py-3 mt-2 bg-blue-600 text-white text-center rounded-lg mx-4 mb-4"
           >

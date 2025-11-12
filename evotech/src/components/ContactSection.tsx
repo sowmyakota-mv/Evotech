@@ -172,7 +172,7 @@ export function ContactSection() {
                     Phone Number <span className="text-red-400">*</span>
                   </label>
                   <PhoneInput
-                    country={"in"}
+                    country={"gb"}
                     value={formData.phone}
                     onChange={handlePhoneChange}
                     inputStyle={{

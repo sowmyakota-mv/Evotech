@@ -1,7 +1,9 @@
 import { CheckCircle,  LucideCheckCircle } from "lucide-react";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
+import { useNavigate } from "react-router-dom";
 
 export function CustomWebDevelopment() {
+    const navigate=useNavigate()
   return (
     <main id="/services/web-development" className="pt-16 bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -161,12 +163,12 @@ export function CustomWebDevelopment() {
             From concept to deployment  we transform your ideas into fast,
             reliable, and stunning websites.
           </p>
-          <a
-            href="/contact"
+          <button
+            onClick={()=>navigate("/contact-us")}
             className="px-6 py-3 bg-white text-blue-700 font-medium rounded-lg shadow hover:bg-gray-100 transition"
           >
             Get Started Today
-          </a>
+          </button>
         </ScrollAnimation>
       </section>
     </main>

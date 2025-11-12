@@ -1,8 +1,10 @@
 // src/pages/EnterpriseSoftwareIntegration.tsx
 
+import { useNavigate } from "react-router-dom";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
 
 export function EnterpriseSoftwareIntegration() {
+    const navigate=useNavigate()
   return (
     <main id="/services/enterprise-software" className="pt-16 bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -155,12 +157,11 @@ export function EnterpriseSoftwareIntegration() {
           <p className="mb-8 opacity-90">
             Let’s modernize your software ecosystem and unlock new levels of business value.
           </p>
-          <a
-            href="/contact"
-            className="px-6 py-3 bg-white text-teal-600 font-medium rounded-lg shadow hover:bg-gray-100 transition"
-          >
+          <button
+            onClick={()=>navigate("/contact-us")}
+            className="px-6 py-3 bg-white text-teal-600 font-medium rounded-lg shadow hover:bg-gray-100 transition">
             Get in Touch
-          </a>
+          </button>
         </ScrollAnimation>
       </section>
     </main>

@@ -1,7 +1,9 @@
 import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import ScrollAnimation from "./Animations/ScrollAnimations";
+import { useNavigate } from "react-router-dom";
 
 export function Footer() {
+    const navigate=useNavigate()
   return (
     <footer className="bg-gray-900 text-gray-300 pt-16 pb-6">
       <ScrollAnimation direction="up">
@@ -16,7 +18,7 @@ export function Footer() {
             growth, and digital transformation through technology excellence.
           </p>
 
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap">
+          <button onClick={()=>navigate("/contact-us")} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-all whitespace-nowrap">
             Contact Us
           </button>
         </div>

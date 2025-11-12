@@ -1,7 +1,9 @@
 // src/pages/DigitalMarketingSEO.tsx
+import { useNavigate } from "react-router-dom";
 import ScrollAnimation from "../components/Animations/ScrollAnimations";
 
 export function DigitalMarketingSEO() {
+    const navigate=useNavigate()
   return (
     <main className="pt-16 bg-gray-50 text-gray-800">
       {/* Hero Section */}
@@ -120,12 +122,12 @@ export function DigitalMarketingSEO() {
           <p className="mb-8 opacity-90">
             Connect with us to boost your ranking, expand your reach and increase your revenue through strategic digital marketing.
           </p>
-          <a
-            href="/contact"
+          <button
+            onClick={()=>navigate("/contact-us")}
             className="px-6 py-3 bg-white text-indigo-600 font-medium rounded-lg shadow hover:bg-gray-100 transition"
           >
-            Free Consultation
-          </a>
+           Get in Touch
+          </button>
         </ScrollAnimation>
       </section>
     </main>
