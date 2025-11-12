@@ -20,6 +20,7 @@ import { DigitalMarketingSEO } from './pages/DigitalMarketingSEO'
 import { BrandingCreativeDesign } from './pages/BrandingCreativeDesign'
 import ScrollToTop from './components/Animations/ScrollToTop'
 import PortfolioPage from './pages/PortfolioPage'
+import Contact from './pages/ContactPage'
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
     <Route path='/services/digital-marketing-seo' element={<DigitalMarketingSEO/>}/>
     <Route path='/services/branding-creative-design' element={<BrandingCreativeDesign/>}/>
     <Route path='/portfolio' element={<PortfolioPage/>}/>
+    <Route path='/contact-us' element={<Contact/>}/>
     </Routes>
     <Footer/>
     </Router>

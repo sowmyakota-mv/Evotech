@@ -27,7 +27,7 @@ export function EnterpriseSoftwareIntegration() {
             At Evotech Solutions, we deliver enterprise software &amp; integration services designed to unify your IT ecosystem and increase business agility. Whether you’re consolidating legacy systems, building new platforms, or integrating across services, we provide robust and scalable software tailored to your unique workflows.
           </p>
           <p className="text-gray-700 leading-relaxed">
-            From end-to-end project planning through deployment and ongoing support, we ensure your software infrastructure becomes a strategic asset — delivering performance, reliability, and value.
+            From end-to-end project planning through deployment and ongoing support, we ensure your software infrastructure becomes a strategic asset  delivering performance, reliability, and value.
           </p>
         </ScrollAnimation>
       </section>
